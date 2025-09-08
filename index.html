@@ -4,11 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Earth</title>
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <header class="w-full bg-[#15803D]">
+    <!-- Navbar -->
+<header class="w-full bg-[#15803D] py-4">
+    <nav class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center justify-start gap-2">
+            <button class="flex items-center md:hidden justify-center w-8 h-8 rounded-full" id="burger">
+                <span class="sr-only">Menu</span>
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" 
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <a href="#" class="text-white text-2xl font-semibold">Green Earth</a>
+        </div>
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="#" class="text-white">Home</a></li>
+            <li><a href="#" class="text-white">About</a></li>
+            <li><a href="#" class="text-white">Contact</a></li>
+        </ul>
+        <button class="bg-[#FDE047] px-4 py-2 rounded-full text-[#15803D] font-semibold">
+            Plant a tree
+        </button>
+    </nav>
 
-    </header>
+    <div id="mobile-menu" 
+         class="fixed top-20 left-2 w-3/5 bg-white shadow-md md:hidden z-10 
+                max-h-0 overflow-hidden transition-all duration-500 ease-in-out rounded-lg">
+        <div class="p-4">
+            <ul class="space-y-4">
+                <li><a href="#" class="text-red-600 text-lg font-semibold">Home</a></li>
+                <li><a href="#" class="text-red-600 text-lg font-semibold">About</a></li>
+                <li><a href="#" class="text-red-600 text-lg font-semibold">Contact</a></li>
+            </ul>
+        </div>
+    </div> 
+</header>
+<!-- Hero Section -->
+
+<section class="w-full bg-[#CFF0DC] md:pt-10">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center">
+        <img class="w-full md:w-1/5 h-auto object-cover rounded-lg" src="./asset/images/hero-leaf1.png" alt="A person planting a tree">
+        <div class="flex flex-col items-center md:w-3/5 text-center">
+            <h1 class="text-4xl md:text-5xl font-semibold text-[black] mb-4">Plant a Tree, Grow a Future</h1>
+            <p class="text-lg text-gray-600 mb-6">Join our mission to plant 1 million trees and make the Earth greener for future <br>generations.</p>
+            <button class="bg-[#FDE047] px-4 py-2 rounded-full text-[#15803D] font-semibold">
+                Plant a tree
+            </button>
+        </div>
+        <img class="w-full md:w-1/5 h-auto object-cover rounded-lg mt-6 md:mt-0 md:ml-6" src="./asset/images/hero-leaf2.png" alt="A person planting a tree">
+        
+    </div>
+</section>
+
+
+<script>
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    burger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('max-h-0');
+        mobileMenu.classList.toggle('max-h-screen');
+    });
+    </script>
 </body>
 </html>
