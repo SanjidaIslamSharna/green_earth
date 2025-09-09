@@ -151,7 +151,7 @@ function setActive(element) {
         updateCartUI();
     }
 
-        // cart UI update করা
+       
     function updateCartUI() {
         const cartList = document.getElementById("cartItems");
         const cartTotal = document.getElementById("total");
