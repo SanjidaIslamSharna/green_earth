@@ -23,14 +23,14 @@ window.onload = function(){
 
 async function getCategories(){
     try{
-        const response = await fetch('https://openapi.programming-hero.com/api/categories');
+        const response = await fetch('../asset/data/categories.json');
         const data = await response.json();
         const categories = data.categories
 
         let html = `<li class="category-item active px-[10px] py-[8px]"><a href="javascript:void(0);" onclick="setActive(this); loadAllPlants()" >All Trees</a></li>`
 
         categories.forEach(cat => {
-            html+=`<li class="category-item px-[10px] py-[8px]"><a href="javascript:void(0);" onclick="setActive(this); getPlantByCategory(${cat.id})">${cat.category_name}</a></li>`
+            html+=`<li class="category-item px-[10px] py-[8px]"><a href="javascript:void(0);" onclick="setActive(this); getPlantByCategory('${cat.category_name}')">${cat.category_name}</a></li>`
         });
 
         document.getElementById('categories').innerHTML = html;
@@ -39,14 +39,16 @@ async function getCategories(){
     }
 }
 
-async function getPlantByCategory(id){
+async function getPlantByCategory(categoryName){
     try{
-        const response = await fetch(`https://openapi.programming-hero.com/api/category/${id}`);
+        const response = await fetch(`../asset/data/allplants.json`);
         const data = await response.json();
         const plants = data.plants;
 
+        const filteredPlants = plants.filter(item => item.category === categoryName);
+
         let html = "";
-        plants.forEach(item => {
+        filteredPlants.forEach(item => {
             html+= `<div onclick="getPlantDetails(${item.id})" class="plant_item bg-white rounded-xl p-4 flex flex-col h-fit gap-2">
             <div class="image h-[186px] overflow-hidden flex justify-center items-center">
               <img class="w-full" src="${item.image}" alt="${item.name}">
@@ -72,7 +74,7 @@ async function getPlantByCategory(id){
 
 async function loadAllPlants() {
     try{
-        const response = await fetch('https://openapi.programming-hero.com/api/plants');
+        const response = await fetch('../asset/data/allplants.json');
         const data = await response.json();
         const plants = data.plants;
 
@@ -104,15 +106,17 @@ async function loadAllPlants() {
 
 async function getPlantDetails(id){
     try{
-        const response = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
+        const response = await fetch(`../asset/data/allplants.json`);
         const data = await response.json();
         const plant = data.plants;
+
+        const filteredPlant = plant.find(item => item.id === id);
         
-        document.getElementById('plantTitle').innerText = plant.name;
-        document.getElementById('plantImage').src = plant.image;
-        document.getElementById('plantCategory').innerText = plant.category;
-        document.getElementById('plantPrice').innerText = plant.price;
-        document.getElementById('plantDetails').innerText = plant.description;
+        document.getElementById('plantTitle').innerText = filteredPlant.name;
+        document.getElementById('plantImage').src = filteredPlant.image;
+        document.getElementById('plantCategory').innerText = filteredPlant.category;
+        document.getElementById('plantPrice').innerText = filteredPlant.price;
+        document.getElementById('plantDetails').innerText = filteredPlant.description;
 
 
         modal.classList.remove('hidden');
